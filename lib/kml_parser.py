@@ -24,8 +24,8 @@ class KmlParser:
         ids = list(result_map.keys())
         i = 0
         for child in root[0][1][0]:
-            data = child.text.split(' ')
-            if data[0] != '\n':
+            if child.text is not None:
+                data = child.text.split(' ')
                 if 'when' in child.tag:
                     result_map[ids[i]]['when'] = data[0]
                 elif 'coord' in child.tag:
@@ -41,3 +41,4 @@ class KmlParser:
         tree = ET.parse(self.merged_fpath)
         root = tree.getroot()
         return self.__parse(root)
+
